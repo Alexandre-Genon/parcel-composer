@@ -33,7 +33,7 @@ export class ParcelBasketService {
       ";" +
       address.street_nb +
       ";" +
-      ""+//address.postbox
+      ""+ //address.postbox
       ";"+
       address.postcode +
       ";" +
