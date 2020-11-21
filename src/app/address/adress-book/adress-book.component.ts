@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { AddressService } from "../address.service";
+import { AddressBookService } from "../address-book.service";
 
 @Component({
   selector: "app-adress-book",
@@ -7,7 +7,7 @@ import { AddressService } from "../address.service";
   styleUrls: ["./adress-book.component.css"]
 })
 export class AdressBookComponent implements OnInit {
-  constructor(private addressService: AddressService) {}
+  constructor(private addressService: AddressBookService) {}
   addressExport = "";
 
   kownAddressesAsJson() {

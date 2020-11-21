@@ -4,6 +4,7 @@ export class Address {
   name: string;
   street: string;
   street_nb: number;
+  postbox_letter: string;
   city: string;
   postcode: number;
   email: string;

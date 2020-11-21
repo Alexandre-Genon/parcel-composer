@@ -2,9 +2,9 @@ import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { Observable, of } from "rxjs";
 import { map, startWith } from "rxjs/operators";
-import { Address } from "../address";
+import { Address } from "../../address/address";
 
-import { AddressService } from "../address.service";
+import { AddressBookService } from "../../address/address-book.service";
 import { ParcelBasketService } from "../parcel-basket.service";
 
 @Component({
@@ -21,7 +21,7 @@ export class NewParcelComponent implements OnInit {
   existingAddress: Boolean;
 
   constructor(
-    private addressService: AddressService,
+    private addressService: AddressBookService,
     private formBuilder: FormBuilder,
     private basketService: ParcelBasketService
   ) {
