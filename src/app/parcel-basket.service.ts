@@ -27,16 +27,21 @@ export class ParcelBasketService {
   toBPostCSV(address: Address): string {
     var asCSV =
       address.name +
-      "," +
-      address.postcode +
-      "," +
-      address.city +
-      "," +
+      "; " + // Empty space for company
+      ";" +
       address.street +
-      "," +
+      ";" +
       address.street_nb +
-      "," +
-      address.email;
+      ";" +
+      ""+//address.postbox
+      ";"+
+      address.postcode +
+      ";" +
+      address.city +
+      ";" +
+      ";" + //empty space for phone number
+      address.email+
+      ";2" // Weight
     return asCSV;
   }
 
