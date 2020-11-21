@@ -1,0 +1,83 @@
+<form [formGroup]="searchForm">
+	<div>
+		<label for="original_string">Full text address </label>
+		<textarea rows=4 id="original_string" type="text" formControlName="original_string" matInput >
+      <!--[matAutocomplete]="nameAutoComp" -->
+		</textarea>
+		<!--
+      <mat-autocomplete autoActiveFirstOption #nameAutoComp="matAutocomplete">
+			<mat-option *ngFor="let address of proposedAddresses | async" [value]="address">
+				{{address.name}}
+			</mat-option>
+			</mat-autocomplete>-->
+		<button class="button"
+     (click)="extractAddressFromName(searchForm.value)">
+     Extract address
+    </button>
+		<table mat-table [dataSource]="proposedAddresses | async" class="addressTable">
+			<tr mat-header-row *matHeaderRowDef="proposedAddressesColumns"></tr>
+			<tr mat-row *matRowDef="let row; columns: proposedAddressesColumns;"></tr>
+			<ng-container matColumnDef="Add">
+				<th mat-header-cell *matHeaderCellDef> Add </th>
+				<td mat-cell *matCellDef="let address">
+					<button mat-raised-button color="primary"
+            (click)="addRecord(address)">
+            Add
+          </button>
+				</td>
+			</ng-container>
+			<ng-container matColumnDef="Name">
+				<th mat-header-cell *matHeaderCellDef> Name </th>
+				<td mat-cell *matCellDef="let address"> {{address.name}} </td>
+			</ng-container>
+			<ng-container matColumnDef="Address">
+				<th mat-header-cell *matHeaderCellDef> Address </th>
+				<td mat-cell *matCellDef="let address">
+					<p>{{address.street}}, {{address.street_nb}}</p>
+					<p>{{address.postcode}} {{address.city}}</p>
+				</td>
+			</ng-container>
+			<ng-container matColumnDef="Email">
+				<th mat-header-cell *matHeaderCellDef> Address </th>
+				<td mat-cell *matCellDef="let address">
+					<p>{{address.email}}</p>
+				</td>
+			</ng-container>
+		</table>
+	</div>
+	<div>
+		<label for="name">
+          Name
+      </label>
+		<input id="name" type="text" formControlName="name">
+    </div>
+		<div>
+			<label for=" street">
+          Street
+      </label>
+			<input id="street" type="text" formControlName="street">
+    </div>
+			<div>
+				<label for="street_nb">
+        Number
+      </label>
+				<input id="street_nb" type="text" formControlName="street_nb">
+    </div>
+				<div>
+					<label for="postcode">
+        Postcode
+      </label>
+					<input id="postcode" type="text" formControlName="postcode">
+    </div>
+					<div>
+						<label for="city">
+        City
+      </label>
+						<input id="city" type="text" formControlName="city">
+		</div>
+						<div>
+							<label for="email"> Email</label>
+							<input id="email" type="text" formControlName="email">
+    </div>
+							<button class="button" type="submit" (click)="onAdd(searchForm.value)">Add</button>
+</form>

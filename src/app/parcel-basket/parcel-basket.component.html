@@ -1,0 +1,11 @@
+<div *ngFor="let parcel of parcels, index as parcelId">
+	<h2>{{parcel.name}}</h2>
+	<p>{{parcel.street}}, {{parcel.street_nb}}</p>
+	<p>{{parcel.postcode}} {{parcel.city}}
+</div>
+<button (click)="export()">
+  I'm done
+</button>
+<p *ngFor="let parcelAsCSV of parcelsAsCSV">
+	{{parcelAsCSV}}
+</p>
