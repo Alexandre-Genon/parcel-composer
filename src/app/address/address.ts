@@ -4,7 +4,7 @@ export class Address {
   name: string;
   street: string;
   street_nb: number;
-  postbox_letter: string;
+  postboxLetter: string;
   city: string;
   postcode: number;
   email: string;
@@ -35,6 +35,7 @@ export class Address {
     let streetAndNb = this.getStringAndNumber(fullStreet);
     address.street = streetAndNb[0];
     address.street_nb = streetAndNb[1];
+    address.postboxLetter = "";
     let fullCity = this.getRowIfPresent(lines, 2);
     let cityAndPostcode = this.getStringAndNumber(fullCity);
     address.city = cityAndPostcode[0];
@@ -49,6 +50,7 @@ export class Address {
     a.name = obj.name;
     a.street = obj.street;
     a.street_nb = obj.street_nb;
+    a.postboxLetter = obj.postboxLetter;
     a.city = obj.city;
     a.postcode = obj.postcode;
     a.email = obj.email;

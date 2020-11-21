@@ -30,6 +30,7 @@ export class NewParcelComponent implements OnInit {
       name: "",
       street: "",
       street_nb: "",
+      postbox_letter: "",
       postcode: "",
       city: "",
       email: ""
@@ -60,6 +61,7 @@ export class NewParcelComponent implements OnInit {
       name: address.name,
       street: address.street,
       street_nb: address.street_nb,
+      postbox_letter: address.postboxLetter,
       postcode: address.postcode,
       city: address.city,
       email: address.email
@@ -78,6 +80,7 @@ export class NewParcelComponent implements OnInit {
     address.street = formFields.street;
     address.street_nb = formFields.street_nb;
     address.postcode = formFields.postcode;
+    address.postboxLetter = formFields.postbox_letter;
     address.city = formFields.city;
     address.email = formFields.email;
     address.originalString = formFields.original_string;
