@@ -15,7 +15,8 @@
           "options": {
             "outputPath": "dist/demo",
             "index": "src/index.html",
-            "main": "src/main.ts",
+            //"main": "src/main.ts",
+            "main": "src/main-test.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.app.json",
             "assets": [
