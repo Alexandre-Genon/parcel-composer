@@ -22,7 +22,6 @@ import {
 
 // stuff to test
 //import "./app/app.component.spec.ts";
-import "./app/address/adress-book/address-book.service.spec.ts";
 
 jasmine.getEnv().configure({ random: false });
 bootstrap();
