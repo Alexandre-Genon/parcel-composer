@@ -1,5 +1,6 @@
 export class Address {
-  static NB_AND_STRING_REGEX = /\s*([0-9]*),?\s*(.+?),?\s*([0-9]*)\s*$/;
+  static NB_AND_STRING_REGEX = /\s*([0-9]+[a-z,A-Z]*)?,?\s*(.+?),?\s*([0-9]+[a-z,A-Z]*)?\s*$/;
+  static NB_AND_LETTER = /([0-9]+)([a-z,A-Z]*)/;
   originalString: string;
   name: string;
   street: string;
@@ -15,14 +16,23 @@ export class Address {
 
   static getStringAndNumber(composedString: string) {
     let parsedAddress = composedString.match(this.NB_AND_STRING_REGEX);
+    console.log(parsedAddress);
     let stringPart = this.getRowIfPresent(parsedAddress, 2);
+    let firstPartOfRegex = this.getRowIfPresent(parsedAddress, 1);
     var numberPart;
-    if (this.getRowIfPresent(parsedAddress, 1).length >= 1) {
+    if (firstPartOfRegex && firstPartOfRegex.length >= 1) {
       numberPart = parsedAddress[1];
     } else {
       numberPart = parsedAddress[3];
     }
     return [stringPart, numberPart];
+  }
+
+  static getNumberAndLetters(composedString: string) {
+    let parsedNb = composedString.match(this.NB_AND_LETTER);
+    let numberPart = parsedNb[1];
+    let letterPart = this.getRowIfPresent(parsedNb, 2);
+    return [numberPart, letterPart];
   }
 
   static fromString(originalString: string): Address {
@@ -34,8 +44,9 @@ export class Address {
     let fullStreet = this.getRowIfPresent(lines, 1);
     let streetAndNb = this.getStringAndNumber(fullStreet);
     address.street = streetAndNb[0];
-    address.street_nb = streetAndNb[1];
-    address.postboxLetter = "";
+    let nbAndPostbox = this.getNumberAndLetters(streetAndNb[1])
+    address.street_nb = nbAndPostbox[0];
+    address.postboxLetter = nbAndPostbox[1];
     let fullCity = this.getRowIfPresent(lines, 2);
     let cityAndPostcode = this.getStringAndNumber(fullCity);
     address.city = cityAndPostcode[0];
