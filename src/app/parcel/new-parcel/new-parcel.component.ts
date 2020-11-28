@@ -2,9 +2,9 @@ import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { Observable, of } from "rxjs";
 import { map, startWith } from "rxjs/operators";
-import { Address } from "../address";
+import { Address } from "../../address/address";
 
-import { AddressService } from "../address.service";
+import { AddressBookService } from "../../address/address-book.service";
 import { ParcelBasketService } from "../parcel-basket.service";
 
 @Component({
@@ -21,7 +21,7 @@ export class NewParcelComponent implements OnInit {
   existingAddress: Boolean;
 
   constructor(
-    private addressService: AddressService,
+    private addressService: AddressBookService,
     private formBuilder: FormBuilder,
     private basketService: ParcelBasketService
   ) {
@@ -30,6 +30,7 @@ export class NewParcelComponent implements OnInit {
       name: "",
       street: "",
       street_nb: "",
+      postbox_letter: "",
       postcode: "",
       city: "",
       email: ""
@@ -60,6 +61,7 @@ export class NewParcelComponent implements OnInit {
       name: address.name,
       street: address.street,
       street_nb: address.street_nb,
+      postbox_letter: address.postboxLetter,
       postcode: address.postcode,
       city: address.city,
       email: address.email
@@ -78,6 +80,7 @@ export class NewParcelComponent implements OnInit {
     address.street = formFields.street;
     address.street_nb = formFields.street_nb;
     address.postcode = formFields.postcode;
+    address.postboxLetter = formFields.postbox_letter;
     address.city = formFields.city;
     address.email = formFields.email;
     address.originalString = formFields.original_string;

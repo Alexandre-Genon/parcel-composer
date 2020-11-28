@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { Address } from "./address";
 
 @Injectable()
-export class AddressService {
+export class AddressBookService {
   DB_NAME: string = "parcel_composer";
   ADDRESS_STORE_NAME: string = "addresses";
   dbConnection;

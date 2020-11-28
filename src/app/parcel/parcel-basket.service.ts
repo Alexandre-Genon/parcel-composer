@@ -1,12 +1,12 @@
 import { Injectable } from "@angular/core";
-import { Address } from "./address";
-import { AddressService } from "./address.service";
+import { Address } from "../address/address";
+import { AddressBookService } from "../address/address-book.service";
 
 @Injectable()
 export class ParcelBasketService {
   parcelBasket: Address[] = [];
 
-  constructor(private addressService: AddressService) {}
+  constructor(private addressService: AddressBookService) {}
 
   addAddressToBasket(address: Address) {
     return this.parcelBasket.push(address);
@@ -33,15 +33,15 @@ export class ParcelBasketService {
       ";" +
       address.street_nb +
       ";" +
-      ""+ //address.postbox
-      ";"+
+      address.postboxLetter + 
+      ";" +
       address.postcode +
       ";" +
       address.city +
       ";" +
       ";" + //empty space for phone number
-      address.email+
-      ";2" // Weight
+      address.email +
+      ";2"; // Weight
     return asCSV;
   }
 
