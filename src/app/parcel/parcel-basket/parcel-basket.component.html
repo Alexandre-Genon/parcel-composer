@@ -1,7 +1,8 @@
 <div *ngFor="let parcel of parcels, index as parcelId">
 	<h2>{{parcel.name}}</h2>
 	<p>{{parcel.street}}, {{parcel.street_nb}} {{parcel.postboxLetter}}</p>
-	<p>{{parcel.postcode}} {{parcel.city}}
+    <p>{{parcel.postcode}} {{parcel.city}}</p>
+    <p *ngIf="parcel.email">{{parcel.email}}</p>
 </div>
 <button (click)="export()">
   I'm done
