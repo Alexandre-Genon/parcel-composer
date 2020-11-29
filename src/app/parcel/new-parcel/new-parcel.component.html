@@ -33,7 +33,7 @@
 			<ng-container matColumnDef="Address">
 				<th mat-header-cell *matHeaderCellDef> Address </th>
 				<td mat-cell *matCellDef="let address">
-					<p>{{address.street}}, {{address.street_nb}}</p>
+					<p>{{address.street}}, {{address.street_nb}} {{address.postboxLetter}}</p>
 					<p>{{address.postcode}} {{address.city}}</p>
 				</td>
 			</ng-container>
@@ -62,6 +62,12 @@
         Number
       </label>
 				<input id="street_nb" type="text" formControlName="street_nb">
+    </div>
+    	<div>
+				<label for="postbox_letter">
+        Postbox
+      </label>
+				<input id="postbox_letter" type="text" formControlName="postbox_letter">
     </div>
 				<div>
 					<label for="postcode">
