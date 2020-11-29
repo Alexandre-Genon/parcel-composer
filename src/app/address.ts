@@ -1,5 +1,5 @@
 export class Address {
-  static NB_AND_STRING_REGEX = /\s*([0-9]*),?\s*(.+?),?\s*([0-9]*)\s*$/;
+  static NB_AND_STRING_REGEX = /\s*(([0-9]+)([a-z,A-Z]{0,3}))?,?\s*(.+?),?\s*(([0-9]+)([a-z,A-Z]{0,3}))?\s*$/;
   originalString: string;
   name: string;
   street: string;
