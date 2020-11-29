@@ -1,4 +1,5 @@
 <form [formGroup]="searchForm" autocomplete="nofill">
+
     <div class="addressPartContainer">
         <label for="original_string">Full text address </label>
         <textarea rows=4 cols="50" id="original_string" type="text" formControlName="original_string" matInput
@@ -18,9 +19,8 @@
             <ng-container matColumnDef="Add">
                 <th mat-header-cell *matHeaderCellDef> Add</th>
                 <td mat-cell *matCellDef="let address">
-                    <button mat-raised-button color="primary"
-                            (click)="addRecord(address)">
-                        Add
+                    <button (click)="addRecord(address)">
+                        <mat-icon class="material-icons md-light">add</mat-icon>
                     </button>
                 </td>
             </ng-container>

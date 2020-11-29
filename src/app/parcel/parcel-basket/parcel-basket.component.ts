@@ -1,5 +1,6 @@
-import { Component, OnInit } from "@angular/core";
+import {Component, OnInit, Output,EventEmitter} from "@angular/core";
 import { ParcelBasketService } from "../parcel-basket.service";
+
 
 @Component({
   selector: "app-parcel-basket",
@@ -9,10 +10,19 @@ import { ParcelBasketService } from "../parcel-basket.service";
 export class ParcelBasketComponent implements OnInit {
   parcels;
   parcelsAsCSV = [];
+  @Output() parcelBasketUpdated = new EventEmitter<number>();
+
   constructor(private parcelBasketService: ParcelBasketService) {}
 
   ngOnInit() {
     this.parcels = this.parcelBasketService.listBasket();
+  }
+
+  removeAddress(name:string){
+      console.log("Removing "+name+" from basket")
+      this.parcelBasketService.removeAddressFromBasket(name);
+      this.parcels = this.parcelBasketService.listBasket();
+      this.parcelBasketUpdated.emit(this.parcelBasketService.basketSize());
   }
 
   export() {

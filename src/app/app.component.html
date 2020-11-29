@@ -1,9 +1,9 @@
 <h1> New parcel</h1>
-<app-new-parcel>
+<app-new-parcel (newParcelEvent)="parcelBasketUpdated($event)">
 </app-new-parcel>
 
-<h1> Existing parcels</h1>
-<app-parcel-basket>
+<h1> Existing parcels ({{basketSize}})</h1>
+<app-parcel-basket (parcelBasketUpdated)="parcelBasketUpdated($event)">
 </app-parcel-basket>
 
 <h1> Address Book</h1>

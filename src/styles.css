@@ -73,7 +73,7 @@ label {
 }
 
 /* Button */
-.button,
+/*.button,
 button {
   display: inline-flex;
   align-items: center;
@@ -84,7 +84,7 @@ button {
   background-color: #1976d2;
   color: white;
   border: none;
-}
+}*/
 
 .button:hover,
 button:hover {

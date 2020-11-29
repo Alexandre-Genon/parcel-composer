@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Output, EventEmitter} from "@angular/core";
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { Observable, of } from "rxjs";
 import { map, startWith } from "rxjs/operators";
@@ -19,6 +19,7 @@ export class NewParcelComponent implements OnInit {
   searchString: string;
   address: Address;
   existingAddress: Boolean;
+  @Output() newParcelEvent = new EventEmitter<number>();
 
   constructor(
     private addressService: AddressBookService,
@@ -99,6 +100,7 @@ export class NewParcelComponent implements OnInit {
     this.basketService.addAddressToBasket(address);
     this.searchForm.reset();
     this.existingAddress = false;
+    this.newParcelEvent.emit(this.basketService.basketSize());
     console.log("Added address : ");
     console.log(address);
   }

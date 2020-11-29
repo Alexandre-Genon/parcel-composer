@@ -20,6 +20,10 @@ export class ParcelBasketService {
     return this.parcelBasket;
   }
 
+  basketSize(){
+    return this.parcelBasket.length;
+  }
+
   exportToBPostCSV(): string[] {
     return this.parcelBasket.map(a => this.toBPostCSV(a));
   }
