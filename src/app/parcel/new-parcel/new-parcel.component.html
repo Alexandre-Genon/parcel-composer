@@ -1,21 +1,18 @@
 <form [formGroup]="searchForm" autocomplete="nofill">
-    <div>
+    <div class="addressPartContainer">
         <label for="original_string">Full text address </label>
-        <textarea rows=4 id="original_string" type="text" formControlName="original_string" matInput
+        <textarea rows=4 cols="50" id="original_string" type="text" formControlName="original_string" matInput
                   autocomplete="nofill">
-      <!--[matAutocomplete]="nameAutoComp" -->
 		</textarea>
-        <!--
-      <mat-autocomplete autoActiveFirstOption #nameAutoComp="matAutocomplete">
-            <mat-option *ngFor="let address of proposedAddresses | async" [value]="address">
-                {{address.name}}
-            </mat-option>
-            </mat-autocomplete>-->
         <button class="button"
                 (click)="extractAddressFromName(searchForm.value)">
             Extract address
         </button>
-        <table mat-table [dataSource]="proposedAddresses | async" class="addressTable">
+    </div>
+
+    <div>
+        <table mat-table [dataSource]="proposedAddresses | async" class="addressTable" >
+               <!--*ngIf="(proposedAddresses | async) && (proposedAddresses | async).length >0"-->
             <tr mat-header-row *matHeaderRowDef="proposedAddressesColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: proposedAddressesColumns;"></tr>
             <ng-container matColumnDef="Add">
@@ -39,52 +36,49 @@
                 </td>
             </ng-container>
             <ng-container matColumnDef="Email">
-                <th mat-header-cell *matHeaderCellDef> Address</th>
+                <th mat-header-cell *matHeaderCellDef> Email</th>
                 <td mat-cell *matCellDef="let address">
                     <p>{{address.email}}</p>
                 </td>
             </ng-container>
         </table>
     </div>
-    <div>
+
+    <div class="addressPartContainer">
         <label for="name">
             Name
         </label>
-        <input id="name" type="text" formControlName="name" >
+        <input id="name" type="text" formControlName="name" autocomplete="nofill">
     </div>
-    <div>
+    <div class="addressPartContainer">
         <label for="street">
             Street
         </label>
-        <input id="street" type="text" formControlName="street">
-    </div>
-    <div>
+        <input id="street" type="text" formControlName="street" autocomplete="nofill">
         <label for="street_nb">
             Number
         </label>
-        <input id="street_nb" type="text" formControlName="street_nb" >
-    </div>
-    <div>
+        <input id="street_nb" cols=5 type="text" formControlName="street_nb" autocomplete="nofill">
         <label for="postbox_letter">
             Postbox
         </label>
-        <input id="postbox_letter" type="text" formControlName="postbox_letter">
+        <input id="postbox_letter" cols="5" type="text" formControlName="postbox_letter" autocomplete="nofill">
     </div>
-    <div>
+    <div class="addressPartContainer">
         <label for="postcode">
             Postcode
         </label>
-        <input id="postcode" type="text" formControlName="postcode">
-    </div>
-    <div>
+        <input id="postcode" type="text" formControlName="postcode" autocomplete="nofill">
         <label for="city">
             City
         </label>
-        <input id="city" type="text" formControlName="city">
+        <input id="city" type="text" formControlName="city" autocomplete="nofill">
     </div>
-    <div>
+    <div class="addressPartContainer">
         <label for="email"> Email</label>
-        <input id="email" type="text" formControlName="email">
+        <input id="email" type="text" formControlName="email" autocomplete="nofill">
     </div>
-    <button class="button" type="submit" (click)="onAdd(searchForm.value)">Add</button>
+    <div class="addressPartContainer">
+        <button class="button" type="submit" (click)="onAdd(searchForm.value)">Add</button>
+    </div>
 </form>
