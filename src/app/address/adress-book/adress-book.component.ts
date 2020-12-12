@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { AddressBookService } from "../address-book.service";
+import * as FileSaver from "file-saver"
 
 @Component({
   selector: "app-adress-book",
@@ -8,10 +9,11 @@ import { AddressBookService } from "../address-book.service";
 })
 export class AdressBookComponent implements OnInit {
   constructor(private addressService: AddressBookService) {}
-  addressExport = "";
 
   kownAddressesAsJson() {
-    this.addressExport = this.addressService.knownAddressesAsJson();
+    let addressExport= new Blob([this.addressService.knownAddressesAsJson()]
+        ,{type:"application/json"});
+    FileSaver.saveAs(addressExport,'address-book.json')
   }
 
   ngOnInit() {}

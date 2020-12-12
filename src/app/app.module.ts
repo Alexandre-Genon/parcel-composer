@@ -12,6 +12,7 @@ import {AdressBookComponent} from "./address/adress-book/adress-book.component";
 import {NewParcelComponent} from "./parcel/new-parcel/new-parcel.component";
 import {ParcelBasketService} from "./parcel/parcel-basket.service";
 import {ParcelBasketComponent} from "./parcel/parcel-basket/parcel-basket.component";
+import {AddressBookUploaderComponent} from "./address/adress-book/address-book-uploader/address-book-uploader.component";
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import {ParcelBasketComponent} from "./parcel/parcel-basket/parcel-basket.compon
         AppComponent,
         ParcelBasketComponent,
         NewParcelComponent,
-        AdressBookComponent
+        AdressBookComponent,
+        AddressBookUploaderComponent
     ],
     bootstrap: [AppComponent],
     providers: [ParcelBasketService, AddressBookService]
