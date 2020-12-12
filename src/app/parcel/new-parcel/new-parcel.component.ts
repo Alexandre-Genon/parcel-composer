@@ -104,4 +104,8 @@ export class NewParcelComponent implements OnInit {
     console.log("Added address : ");
     console.log(address);
   }
+
+    addressCanBeExtracted(formFields):boolean {
+        return (formFields.original_string!=null) && (formFields.original_string.length>0);
+    }
 }

@@ -22,7 +22,8 @@ import {ParcelBasketComponent} from "./parcel/parcel-basket/parcel-basket.compon
         MatFormFieldModule,
         MatTableModule,
         MatButtonModule,
-        MatIconModule
+        MatIconModule,
+
     ],
     declarations: [
         AppComponent,

@@ -6,7 +6,9 @@
                   autocomplete="nofill">
 		</textarea>
         <button class="button"
-                (click)="extractAddressFromName(searchForm.value)">
+                (click)="extractAddressFromName(searchForm.value) "
+                [disabled]="!addressCanBeExtracted(searchForm.value)"
+        >
             Extract address
         </button>
     </div>

@@ -94,5 +94,8 @@
       }
     }
   },
-  "defaultProject": "parcel-composer"
+  "defaultProject": "parcel-composer",
+  "cli": {
+    "analytics": false
+  }
 }

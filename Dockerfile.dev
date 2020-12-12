@@ -1,9 +1,0 @@
-FROM node:15.3.0
-EXPOSE 4200
-ENV SRC_PREFIX /src/parcel-composer
-RUN npm install -g @angular/cli
-copy src angular.json package.json tsconfig.json $SRC_PREFIX/
-WORKDIR $SRC_PREFIX
-RUN npm install
-
-CMD npm update && ng serve --host=0.0.0.0 --verbose=true --disableHostCheck

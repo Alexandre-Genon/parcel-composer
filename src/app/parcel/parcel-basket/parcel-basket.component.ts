@@ -1,6 +1,7 @@
 import {Component, OnInit, Output,EventEmitter} from "@angular/core";
 import { ParcelBasketService } from "../parcel-basket.service";
-
+import { saveAs } from "file-saver";
+import * as iconv from "iconv-lite";
 
 @Component({
   selector: "app-parcel-basket",
@@ -9,7 +10,6 @@ import { ParcelBasketService } from "../parcel-basket.service";
 })
 export class ParcelBasketComponent implements OnInit {
   parcels;
-  parcelsAsCSV = [];
   @Output() parcelBasketUpdated = new EventEmitter<number>();
 
   constructor(private parcelBasketService: ParcelBasketService) {}
@@ -26,6 +26,11 @@ export class ParcelBasketComponent implements OnInit {
   }
 
   export() {
-    this.parcelsAsCSV = this.parcelBasketService.commitBasket();
+    let parcelsAsCSV =
+        this.parcelBasketService
+            .commitBasket()
+            .map(s=>iconv.encode(s,"ISO-8859-1"));
+    let parcelsAsBlob: Blob = new Blob(parcelsAsCSV,{type:"text/csv;charset=ISO-8859-1"});
+    saveAs(parcelsAsBlob,"parcels.csv");
   }
 }
