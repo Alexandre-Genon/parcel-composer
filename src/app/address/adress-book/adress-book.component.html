@@ -1,6 +1,10 @@
-<p>
-    <button (click)="kownAddressesAsJson()">
+<div>
+    <h3>Export a the address book</h3>
+    <button (click)="kownAddressesAsJson()" [disabled]="!thereAreAddressesToExport()">
         Export as JSON
     </button>
+</div>
+<div>
+    <h3>Import an address book</h3>
     <app-address-book-uploader></app-address-book-uploader>
-</p>
+</div>

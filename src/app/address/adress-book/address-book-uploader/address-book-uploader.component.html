@@ -1,1 +1,17 @@
-<p>address-book-uploader works!</p>
+<form>
+    <div>
+        <label for="address-book-file">File to upload</label>
+        <input id="address-book-file" type="file" (change)="onFileChange($event)"/>
+    </div>
+    <div>
+        <select [(ngModel)]="selectedUploadMode" name="selectedUploadMode">
+            <option *ngFor="let uploadMode of uploadModeKeys" [value]="uploadModes[uploadMode]"
+            [attr.selected]="(uploadMode==0)?true:null">
+                {{uploadModes[uploadMode]}}
+            </option>
+        </select>
+    </div>
+    <div>
+        <button class="button" (click)="startUpload($event)"> Start upload</button>
+    </div>
+</form>

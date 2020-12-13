@@ -17,4 +17,8 @@ export class AdressBookComponent implements OnInit {
   }
 
   ngOnInit() {}
+
+    thereAreAddressesToExport() {
+      return (this.addressService.knownAddresses.length>0);
+    }
 }

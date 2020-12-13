@@ -1,11 +1,13 @@
 import {NgModule} from "@angular/core";
 import {BrowserModule} from "@angular/platform-browser";
-import {ReactiveFormsModule} from "@angular/forms";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {MatTableModule} from "@angular/material/table";
+import { MatSelectModule } from "@angular/material/select";
 import {AppComponent} from "./app.component";
 import {AddressBookService} from "./address/address-book.service";
 import {AdressBookComponent} from "./address/adress-book/adress-book.component";
@@ -18,12 +20,15 @@ import {AddressBookUploaderComponent} from "./address/adress-book/address-book-u
 @NgModule({
     imports: [
         BrowserModule,
+        BrowserAnimationsModule,
         ReactiveFormsModule,
         MatAutocompleteModule,
         MatFormFieldModule,
         MatTableModule,
         MatButtonModule,
         MatIconModule,
+        MatSelectModule,
+        FormsModule
 
     ],
     declarations: [
