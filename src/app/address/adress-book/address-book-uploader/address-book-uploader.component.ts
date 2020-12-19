@@ -13,10 +13,10 @@ enum UploadMode{
     styleUrls: ['./address-book-uploader.component.css']
 })
 export class AddressBookUploaderComponent implements OnInit {
-    private sourceFile: File;
-    private uploadModes=UploadMode;
-    private uploadModeKeys;
-    private selectedUploadMode;
+    sourceFile: File;
+    uploadModes=UploadMode;
+    uploadModeKeys;
+    selectedUploadMode;
 
     constructor(private addressService:AddressBookService) {
         this.uploadModeKeys = Object.keys(this.uploadModes).filter(f=>(!isNaN(Number(f))));
