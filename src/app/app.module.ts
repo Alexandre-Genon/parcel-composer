@@ -15,6 +15,8 @@ import {NewParcelComponent} from "./parcel/new-parcel/new-parcel.component";
 import {ParcelBasketService} from "./parcel/parcel-basket.service";
 import {ParcelBasketComponent} from "./parcel/parcel-basket/parcel-basket.component";
 import {AddressBookUploaderComponent} from "./address/adress-book/address-book-uploader/address-book-uploader.component";
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 
 @NgModule({
@@ -28,7 +30,8 @@ import {AddressBookUploaderComponent} from "./address/adress-book/address-book-u
         MatButtonModule,
         MatIconModule,
         MatSelectModule,
-        FormsModule
+        FormsModule,
+        ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
 
     ],
     declarations: [
