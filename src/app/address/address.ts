@@ -10,15 +10,16 @@ export class Address {
   postcode: number;
   email: string;
 
-  private static getRowIfPresent(array: any[], index: number) {
-    return array.length >= index + 1 ? array[index] : "";
+  private static getTrimmedRowIfPresent(array: any[], index: number) {
+      let row = (array.length >= index + 1 ? array[index] : "") as string;
+      return row && row.trim();
   }
 
   static getStringAndNumber(composedString: string) {
     let parsedAddress = composedString.match(this.NB_AND_STRING_REGEX);
     console.log(parsedAddress);
-    let stringPart = this.getRowIfPresent(parsedAddress, 2);
-    let firstPartOfRegex = this.getRowIfPresent(parsedAddress, 1);
+    let stringPart = this.getTrimmedRowIfPresent(parsedAddress, 2);
+    let firstPartOfRegex = this.getTrimmedRowIfPresent(parsedAddress, 1);
     var numberPart;
     if (firstPartOfRegex && firstPartOfRegex.length >= 1) {
       numberPart = parsedAddress[1];
@@ -31,7 +32,7 @@ export class Address {
   static getNumberAndLetters(composedString: string) {
     let parsedNb = composedString.match(this.NB_AND_LETTER);
     let numberPart = parsedNb[1];
-    let letterPart = this.getRowIfPresent(parsedNb, 2);
+    let letterPart = this.getTrimmedRowIfPresent(parsedNb, 2);
     return [numberPart, letterPart];
   }
 
@@ -41,17 +42,17 @@ export class Address {
     let address = new Address();
     address.originalString = originalString;
     address.name = lines[0];
-    let fullStreet = this.getRowIfPresent(lines, 1);
+    let fullStreet = this.getTrimmedRowIfPresent(lines, 1);
     let streetAndNb = this.getStringAndNumber(fullStreet);
     address.street = streetAndNb[0];
     let nbAndPostbox = this.getNumberAndLetters(streetAndNb[1])
-    address.street_nb = nbAndPostbox[0];
+    address.street_nb = +nbAndPostbox[0];
     address.postboxLetter = nbAndPostbox[1];
-    let fullCity = this.getRowIfPresent(lines, 2);
+    let fullCity = this.getTrimmedRowIfPresent(lines, 2);
     let cityAndPostcode = this.getStringAndNumber(fullCity);
     address.city = cityAndPostcode[0];
     address.postcode = cityAndPostcode[1];
-    address.email = this.getRowIfPresent(lines, 3);
+    address.email = this.getTrimmedRowIfPresent(lines, 3);
     return address;
   }
 
@@ -66,5 +67,9 @@ export class Address {
     a.postcode = obj.postcode;
     a.email = obj.email;
     return a;
+  }
+
+  postAddressToString():string{
+      return `${this.street}, ${this.street_nb}${this.postboxLetter} - ${this.postcode} ${this.city}`
   }
 }

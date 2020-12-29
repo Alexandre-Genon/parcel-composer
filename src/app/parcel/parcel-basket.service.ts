@@ -6,7 +6,9 @@ import { AddressBookService } from "../address/address-book.service";
 export class ParcelBasketService {
   parcelBasket: Address[] = [];
 
-  constructor(private addressService: AddressBookService) {}
+  constructor(private addressService: AddressBookService) {
+      console.log("Instanciating ParcelBasketService");
+  }
 
   addAddressToBasket(address: Address) {
     return this.parcelBasket.push(address);

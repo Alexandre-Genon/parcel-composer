@@ -14,36 +14,12 @@
     </div>
 
     <div>
-        <table mat-table [dataSource]="proposedAddresses | async" class="addressTable" >
-               <!--*ngIf="(proposedAddresses | async) && (proposedAddresses | async).length >0"-->
-            <tr mat-header-row *matHeaderRowDef="proposedAddressesColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: proposedAddressesColumns;"></tr>
-            <ng-container matColumnDef="Add">
-                <th mat-header-cell *matHeaderCellDef> Add</th>
-                <td mat-cell *matCellDef="let address">
-                    <button (click)="addRecord(address)">
-                        <mat-icon class="material-icons md-light">add</mat-icon>
-                    </button>
-                </td>
-            </ng-container>
-            <ng-container matColumnDef="Name">
-                <th mat-header-cell *matHeaderCellDef> Name</th>
-                <td mat-cell *matCellDef="let address"> {{address.name}}</td>
-            </ng-container>
-            <ng-container matColumnDef="Address">
-                <th mat-header-cell *matHeaderCellDef> Address</th>
-                <td mat-cell *matCellDef="let address">
-                    <p>{{address.street}}, {{address.street_nb}} {{address.postboxLetter}}</p>
-                    <p>{{address.postcode}} {{address.city}}</p>
-                </td>
-            </ng-container>
-            <ng-container matColumnDef="Email">
-                <th mat-header-cell *matHeaderCellDef> Email</th>
-                <td mat-cell *matCellDef="let address">
-                    <p>{{address.email}}</p>
-                </td>
-            </ng-container>
-        </table>
+        <app-address-book-explorer
+                (addressSelected)="addKnownAddress($event)"
+                [addressBookMode]="selectBookMode()"
+                [searchString]="searchString|async"
+        >
+        </app-address-book-explorer>
     </div>
 
     <div class="addressPartContainer">
@@ -84,3 +60,6 @@
         <button class="button" type="submit" (click)="onAdd(searchForm.value)">Add</button>
     </div>
 </form>
+<nav>
+    <a routerLink="/parcels">List of parcels</a>
+</nav>

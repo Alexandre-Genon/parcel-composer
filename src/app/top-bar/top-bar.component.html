@@ -1,0 +1,7 @@
+<div class="button-list">
+    <button mat-raised-button *ngFor="let link of getNavLink()">
+        <nav>
+            <a routerLink="/{{link}}">{{link}}</a>
+        </nav>
+    </button>
+</div>

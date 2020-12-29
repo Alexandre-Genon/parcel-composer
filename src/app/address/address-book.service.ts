@@ -7,8 +7,10 @@ export class AddressBookService {
     ADDRESS_STORE_NAME: string = "addresses";
     dbConnection;
     indexeddbUnsupported = false;
+    private reloadAddressesRequest: IDBRequest;
 
     constructor() {
+        console.log("Instanciating AddressBookService");
         if (!window.indexedDB) {
             console.log("indexedDB not supported");
             this.dbConnection = null;
@@ -36,6 +38,19 @@ export class AddressBookService {
         }
     }
 
+    reloadKnownAddresses() {
+        console.log("reloading address")
+        let transaction = this.dbConnection.transaction(this.ADDRESS_STORE_NAME);
+        let addressesStore = transaction.objectStore(this.ADDRESS_STORE_NAME);
+        this.reloadAddressesRequest = addressesStore.getAll();
+        this.reloadAddressesRequest.onsuccess = event => {
+            this.knownAddresses =
+                this.reloadAddressesRequest.result
+                .map(ia => Address.fromObject(ia));
+            console.log("Reloaded " + this.knownAddresses.length + " addresses from store");
+        };
+    }
+
     knownAddresses: Address[] = [];
 
     searchByName(searchString: string): Address[] {
@@ -52,22 +67,22 @@ export class AddressBookService {
         return address;
     }
 
-    reloadKnownAddresses() {
-        let transaction = this.dbConnection.transaction(this.ADDRESS_STORE_NAME);
-        let addressesStore = transaction.objectStore(this.ADDRESS_STORE_NAME);
-        addressesStore.getAll().onsuccess = event => {
-            this.knownAddresses = event.target.result;
-            console.log(
-                "Reloaded " + this.knownAddresses.length + " addresses from store"
-            );
-        };
-    }
 
     addAddress(address: Address) {
         console.log("Adding address");
         console.log(address);
         this.knownAddresses.push(address);
-        if (!this.indexeddbUnsupported && this.dbConnection != null) {
+        this.persistToDB(address);
+    }
+
+    updateAddress(address: Address) {
+        let indexOf = this.knownAddresses.indexOf(address);
+        this.knownAddresses[indexOf]=address;
+        this.persistToDB(address);
+    }
+
+    private persistToDB(address: Address) {
+        if (this.isIndexedDBAvailable()) {
             let transaction = this.dbConnection.transaction(
                 this.ADDRESS_STORE_NAME,
                 "readwrite"
@@ -76,9 +91,13 @@ export class AddressBookService {
                 console.log("Transaction successfully completed");
             };
             let addressesStore = transaction.objectStore(this.ADDRESS_STORE_NAME);
-            addressesStore.put(address); //, address.name);
+            addressesStore.put(address);
             console.log("Address persisted");
         }
+    }
+
+    private isIndexedDBAvailable() {
+        return !this.indexeddbUnsupported && this.dbConnection != null;
     }
 
     knownAddressesAsJson() {
@@ -88,7 +107,7 @@ export class AddressBookService {
     truncateBook() {
         console.log("Truncating address book")
         this.knownAddresses = [];
-        if (!this.indexeddbUnsupported && this.dbConnection != null) {
+        if (this.isIndexedDBAvailable()) {
             let transaction = this.dbConnection.transaction(
                 this.ADDRESS_STORE_NAME,
                 "readwrite"
@@ -107,4 +126,5 @@ export class AddressBookService {
             clearRequest;
         }
     }
+
 }

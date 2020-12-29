@@ -1,0 +1,40 @@
+<div *ngIf="address">
+<h3>Edition of {{address.name}}</h3>
+    <form [formGroup]="addressEdition" autocomplete="nofill" (ngSubmit)="onSave(addressEdition.value)">
+        <mat-form-field appearance="standard">
+            <mat-label>Nom</mat-label>
+            <input matInput placeholder="Nom" formControlName="name">
+        </mat-form-field>
+        <mat-form-field appearance="standard">
+            <mat-label>Email</mat-label>
+            <input matInput placeholder="email" formControlName="email">
+        </mat-form-field>
+        <mat-form-field appearance="standard">
+            <mat-label>Rue</mat-label>
+            <input matInput placeholder="Rue" formControlName="street">
+        </mat-form-field>
+        <mat-form-field appearance="standard">
+            <mat-label>Numéro</mat-label>
+            <input matInput placeholder="Numéro" formControlName="street_nb">
+        </mat-form-field>
+        <mat-form-field appearance="standard">
+            <mat-label>Boîte</mat-label>
+            <input matInput placeholder="Boîte" formControlName="postbox_letter">
+        </mat-form-field>
+        <mat-form-field appearance="standard">
+            <mat-label>Code postal</mat-label>
+            <input matInput placeholder="Code postal" formControlName="postcode">
+        </mat-form-field>
+        <mat-form-field appearance="standard">
+            <mat-label>Ville</mat-label>
+            <input matInput placeholder="Ville" formControlName="city">
+        </mat-form-field>
+        <mat-form-field appearance="standard">
+            <mat-label>Texte original</mat-label>
+            <textarea rows=6 cols=150 matInput placeholder="Texte original" formControlName="original_string"></textarea>
+        </mat-form-field>
+        <div>
+            <button mat-raised-button type="submit">Sauvegarder</button>
+        </div>
+    </form>
+</div>

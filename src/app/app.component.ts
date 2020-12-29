@@ -1,5 +1,4 @@
 import { Component, VERSION } from "@angular/core";
-import {ParcelBasketService} from "./parcel/parcel-basket.service";
 
 @Component({
   selector: "my-app",
@@ -9,11 +8,8 @@ import {ParcelBasketService} from "./parcel/parcel-basket.service";
 export class AppComponent {
     basketSize=0;
 
-    constructor(private parcelBasketService:ParcelBasketService){
+    constructor(){
 
     }
 
-    parcelBasketUpdated(basketSize: number) {
-        this.basketSize=basketSize;
-    }
 }

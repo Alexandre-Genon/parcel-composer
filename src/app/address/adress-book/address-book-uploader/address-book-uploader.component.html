@@ -1,10 +1,11 @@
-<form>
+<form style="display: flex; align-content: baseline">
     <div>
-        <label for="address-book-file">File to upload</label>
+        <label for="address-book-file">Upload address book</label>
         <input id="address-book-file" type="file" (change)="onFileChange($event)"/>
     </div>
     <div>
-        <select [(ngModel)]="selectedUploadMode" name="selectedUploadMode">
+        <label for="selectUploadMode">Upload mode</label>
+        <select [(ngModel)]="selectedUploadMode" name="selectedUploadMode" id="selectUploadMode">
             <option *ngFor="let uploadMode of uploadModeKeys" [value]="uploadModes[uploadMode]"
             [attr.selected]="(uploadMode==0)?true:null">
                 {{uploadModes[uploadMode]}}
@@ -12,6 +13,6 @@
         </select>
     </div>
     <div>
-        <button class="button" (click)="startUpload($event)"> Start upload</button>
+        <button mat-raised-button class="button" (click)="startUpload($event)"> Start upload</button>
     </div>
 </form>

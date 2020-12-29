@@ -1,10 +1,27 @@
-<div>
-    <h3>Export a the address book</h3>
-    <button (click)="kownAddressesAsJson()" [disabled]="!thereAreAddressesToExport()">
+<h3>Manage address book</h3>
+<div class="button-list">
+    <button mat-raised-button (click)="kownAddressesAsJson()" [disabled]="!thereAreAddressesToExport()">
         Export as JSON
     </button>
-</div>
-<div>
-    <h3>Import an address book</h3>
     <app-address-book-uploader></app-address-book-uploader>
+</div>
+<h3>Address book</h3>
+<div class="address-book">
+    <form class="filter-address" name="addresses-filter">
+        <mat-form-field>
+            <mat-label>Nom</mat-label>
+            <input matInput
+                   placeholder="Entrer le nom à rechercher"
+                   [(ngModel)]="searchString"
+                   [ngModelOptions]="{standalone: true}"
+            />
+        </mat-form-field>
+    </form>
+    <app-address-book-explorer
+            [addressBookMode]="editMode()"
+            [searchString]="searchString"
+            (addressSelected)="addressSelected($event)"
+    >
+
+    </app-address-book-explorer>
 </div>

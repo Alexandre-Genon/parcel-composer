@@ -4,7 +4,7 @@ WORKDIR /app
 COPY package*.json /app/
 RUN npm install
 COPY src /app/src
-COPY angular.json tsconfig* /app/
+COPY angular.json tsconfig* ngsw-config.json package.json /app/
 ARG configuration=production
 RUN npm run build -- --outputPath=./dist/out --configuration $configuration
 
