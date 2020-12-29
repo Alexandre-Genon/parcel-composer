@@ -46,7 +46,7 @@ export class AddressBookService {
         this.reloadAddressesRequest.onsuccess = event => {
             this.knownAddresses =
                 this.reloadAddressesRequest.result
-                .map(ia => Address.fromObject(ia));
+                    .map(ia => Address.fromObject(ia));
             console.log("Reloaded " + this.knownAddresses.length + " addresses from store");
         };
     }
@@ -77,7 +77,7 @@ export class AddressBookService {
 
     updateAddress(address: Address) {
         let indexOf = this.knownAddresses.indexOf(address);
-        this.knownAddresses[indexOf]=address;
+        this.knownAddresses[indexOf] = address;
         this.persistToDB(address);
     }
 
@@ -107,24 +107,34 @@ export class AddressBookService {
     truncateBook() {
         console.log("Truncating address book")
         this.knownAddresses = [];
+        let addressesStore = this.openAddressesStore();
+        let clearRequest = addressesStore.clear();
+        clearRequest.onsuccess = e => {
+            console.log("Address book store successfully truncated");
+        }
+        clearRequest;
+    }
+
+    private openAddressesStore() {
         if (this.isIndexedDBAvailable()) {
+            var addressesStore;
             let transaction = this.dbConnection.transaction(
                 this.ADDRESS_STORE_NAME,
                 "readwrite"
             );
             transaction.onsuccess = e => {
                 console.log("Address book store successfully truncated");
+                addressesStore = transaction.objectStore(this.ADDRESS_STORE_NAME);
             };
             transaction.onerror = e => {
                 console.log("Failed to truncate address book");
             }
-            let addressesStore = transaction.objectStore(this.ADDRESS_STORE_NAME);
-            let clearRequest = addressesStore.clear();
-            clearRequest.onsuccess = e => {
-                console.log("Address book store successfully truncated");
-            }
-            clearRequest;
+            return addressesStore;
         }
     }
 
+    removeAddress(address: Address) {
+        this.knownAddresses = this.knownAddresses.filter(a => a != address);
+        this.openAddressesStore()
+    }
 }

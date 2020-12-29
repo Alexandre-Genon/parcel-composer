@@ -63,4 +63,8 @@ export class AddressEditorComponent implements OnInit {
             email: address.email
         });
     }
+
+    deleteAddress(address: Address) {
+        this.addressService.removeAddress(address);
+    }
 }
