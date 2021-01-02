@@ -104,6 +104,22 @@ export class AddressBookService {
         return JSON.stringify(this.knownAddresses);
     }
 
+    private openAddressesStore() {
+        if (this.isIndexedDBAvailable()) {
+            let transaction = this.dbConnection.transaction(
+                this.ADDRESS_STORE_NAME,
+                "readwrite"
+            );
+            transaction.oncomplete = e => {
+                console.log("Transaction succeeded");
+            };
+            transaction.onerror = e => {
+                console.log("Transaction failed");
+            }
+            return transaction.objectStore(this.ADDRESS_STORE_NAME);
+        }
+    }
+
     truncateBook() {
         console.log("Truncating address book")
         this.knownAddresses = [];
@@ -111,30 +127,23 @@ export class AddressBookService {
         let clearRequest = addressesStore.clear();
         clearRequest.onsuccess = e => {
             console.log("Address book store successfully truncated");
-        }
-        clearRequest;
-    }
-
-    private openAddressesStore() {
-        if (this.isIndexedDBAvailable()) {
-            var addressesStore;
-            let transaction = this.dbConnection.transaction(
-                this.ADDRESS_STORE_NAME,
-                "readwrite"
-            );
-            transaction.onsuccess = e => {
-                console.log("Address book store successfully truncated");
-                addressesStore = transaction.objectStore(this.ADDRESS_STORE_NAME);
-            };
-            transaction.onerror = e => {
-                console.log("Failed to truncate address book");
-            }
-            return addressesStore;
-        }
+        };
+        clearRequest.onerror = e => {
+            console.log("Failed to truncate address book ");
+            console.log(e);
+        };
     }
 
     removeAddress(address: Address) {
         this.knownAddresses = this.knownAddresses.filter(a => a != address);
-        this.openAddressesStore()
+        let addressesStore = this.openAddressesStore();
+        let removeRequest = addressesStore.delete(address.name);
+        removeRequest.onsuccess = e => {
+            console.log(address.name + " successfully removed from DB");
+        };
+        removeRequest.onerror = e => {
+            console.log("Failed to remove "+address.name +" from address book ");
+            console.log(e);
+        };
     }
 }
