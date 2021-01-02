@@ -3,7 +3,7 @@ name: Docker
 on:
   workflow_dispatch:
   release:
-    types: [publishing]
+    types: [published]
  
 env:
   IMAGE_NAME: parcel-composer
