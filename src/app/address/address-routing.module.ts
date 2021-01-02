@@ -5,7 +5,8 @@ import {AddressEditorComponent} from "./adress-book/address-editor/address-edito
 
 export const routes: Routes = [
     {path:'addresses',component:AdressBookComponent},
-    {path:'address/:name',component:AddressEditorComponent}
+    {path:'address/:name',component:AddressEditorComponent},
+    {path:'new_address',component:AddressEditorComponent},
 ];
 
 @NgModule({

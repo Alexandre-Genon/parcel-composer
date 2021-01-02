@@ -67,4 +67,25 @@ export class AddressEditorComponent implements OnInit {
     deleteAddress(address: Address) {
         this.addressService.removeAddress(address);
     }
+
+    extractAddressFromName(addressEdition) {
+        let address = this.addressService.extractAddressFromString(
+            addressEdition.original_string
+        );
+
+        this.addressEdition.setValue({
+            original_string: address.originalString,
+            name: address.name,
+            street: address.street,
+            street_nb: address.street_nb,
+            postbox_letter: address.postboxLetter,
+            postcode: address.postcode,
+            city: address.city,
+            email: address.email
+        });
+    }
+
+    addressCanBeExtracted(addressEdition) {
+        return (addressEdition.original_string != null) && (addressEdition.original_string.length > 0);
+    }
 }
