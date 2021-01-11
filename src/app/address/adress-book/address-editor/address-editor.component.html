@@ -1,41 +1,59 @@
-<div *ngIf="address">
-<h3>Edition of {{address.name}}</h3>
-    <form [formGroup]="addressEdition" autocomplete="nofill" (ngSubmit)="onSave(addressEdition.value)">
-        <mat-form-field appearance="standard">
+<div>
+    <h3 *ngIf="address">Edition of {{address.name}}</h3>
+    <form class="address-form-wrapper" [formGroup]="addressEdition" autocomplete="nofill"
+          (ngSubmit)="onSave(addressEdition.value)">
+        <mat-form-field appearance="standard" style="grid-column: 1; grid-row: 1/4;">
+            <mat-label>Texte original</mat-label>
+            <textarea matInput placeholder="Texte original" rows=10
+                      formControlName="original_string"></textarea>
+        </mat-form-field>
+        <div style="grid-row: 4; grid-column: 1;">
+            <button mat-raised-button type="button"
+                    (click)="extractAddressFromName(addressEdition.value) "
+                    [disabled]="!addressCanBeExtracted(addressEdition.value)"
+            >
+                Extraire adresse
+                <mat-icon aria-hidden="false">chevron_right</mat-icon>
+            </button>
+        </div>
+        <mat-form-field appearance="standard" style="grid-column: 2; grid-row: 1">
             <mat-label>Nom</mat-label>
             <input matInput placeholder="Nom" formControlName="name">
         </mat-form-field>
-        <mat-form-field appearance="standard">
+        <mat-form-field appearance="standard" style="grid-column: 2; grid-row: 2">
             <mat-label>Email</mat-label>
             <input matInput placeholder="email" formControlName="email">
         </mat-form-field>
-        <mat-form-field appearance="standard">
-            <mat-label>Rue</mat-label>
-            <input matInput placeholder="Rue" formControlName="street">
-        </mat-form-field>
-        <mat-form-field appearance="standard">
-            <mat-label>Numéro</mat-label>
-            <input matInput placeholder="Numéro" formControlName="street_nb">
-        </mat-form-field>
-        <mat-form-field appearance="standard">
-            <mat-label>Boîte</mat-label>
-            <input matInput placeholder="Boîte" formControlName="postbox_letter">
-        </mat-form-field>
-        <mat-form-field appearance="standard">
-            <mat-label>Code postal</mat-label>
-            <input matInput placeholder="Code postal" formControlName="postcode">
-        </mat-form-field>
-        <mat-form-field appearance="standard">
-            <mat-label>Ville</mat-label>
-            <input matInput placeholder="Ville" formControlName="city">
-        </mat-form-field>
-        <mat-form-field appearance="standard">
-            <mat-label>Texte original</mat-label>
-            <textarea rows=6 cols=150 matInput placeholder="Texte original" formControlName="original_string"></textarea>
-        </mat-form-field>
-        <div>
+        <div class="address-element" style="grid-column: 2; grid-row: 3">
+            <mat-form-field appearance="standard" style="width: 50ch;">
+                <mat-label>Rue</mat-label>
+                <input matInput placeholder="Rue" formControlName="street">
+            </mat-form-field>
+            <mat-form-field appearance="standard" style="width: 10ch;">
+                <mat-label>Numéro</mat-label>
+                <input matInput placeholder="Numéro" formControlName="street_nb">
+            </mat-form-field>
+            <mat-form-field appearance="standard" style="width: 5ch;">
+                <mat-label>Boîte</mat-label>
+                <input matInput placeholder="Boîte" formControlName="postbox_letter">
+            </mat-form-field>
+        </div>
+        <div class="address-element" style="grid-column: 2; grid-row: 4">
+            <mat-form-field appearance="standard" style="width: 4ch;">
+                <mat-label>CP</mat-label>
+                <input matInput placeholder="Code postal" formControlName="postcode">
+            </mat-form-field>
+            <mat-form-field appearance="standard" style="width: 50ch;">
+                <mat-label>Ville</mat-label>
+                <input matInput placeholder="Ville" formControlName="city">
+            </mat-form-field>
+        </div>
+
+        <div style="grid-column: 1/2; grid-row: 5;">
             <button mat-raised-button type="submit">Sauvegarder</button>
-            <button mat-raised-button type="button" (click)="deleteAddress(address)">Supprimer</button>
+            <button mat-raised-button type="button" color="warn" (click)="deleteAddress(address)" *ngIf="address">
+                Supprimer
+            </button>
         </div>
     </form>
 </div>

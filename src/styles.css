@@ -55,41 +55,4 @@ a:hover {
   opacity: 0.8;
 }
 
-/* Input */
 
-input {
-  font-size: 14px;
-  border-radius: 2px;
-  padding: 8px;
-  margin-bottom: 16px;
-  border: 1px solid #bdbdbd;
-}
-
-label {
-  font-size: 12px;
-  font-weight: bold;
-  margin-bottom: 4px;
-  display: block;
-  text-transform: uppercase;
-}
-
-
-.button:hover,
-button:hover {
-  opacity: 0.8;
-  font-weight: normal;
-}
-
-.button:disabled,
-button:disabled {
-  opacity: 0.5;
-  cursor: auto;
-}
-
-.button-list {
-    display: flex;
-}
-
-.button-list > * {
-    margin-left: 20px;
-}

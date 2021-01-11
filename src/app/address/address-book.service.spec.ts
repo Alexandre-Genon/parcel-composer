@@ -22,7 +22,7 @@ describe('AddressBookService', () => {
         );
         it("should correctly retrieve the address",()=>{
             let address: Address = addressService.extractAddressFromString(testAddress);
-            addressService.addAddress(address);
+            addressService.upsertAddress(address);
             let foundAddress = addressService.searchByName("genon");
             expect(foundAddress.length).toBeGreaterThan(0);
             expect(foundAddress[0].name).toBe('Genon Alexandre');
