@@ -39,8 +39,9 @@ import {MatSelectModule} from "@angular/material/select";
         MatSelectModule,
         FormsModule,
     ],
-    exports:[
-        AddressBookExplorerComponent
+    exports: [
+        AddressBookExplorerComponent,
+        AddressEditorComponent
     ]
 })
 export class AddressModule {

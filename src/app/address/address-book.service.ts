@@ -69,15 +69,19 @@ export class AddressBookService {
 
 
     addAddress(address: Address) {
-        console.log("Adding address");
-        console.log(address);
         this.knownAddresses.push(address);
         this.persistToDB(address);
     }
 
-    updateAddress(address: Address) {
+    upsertAddress(address: Address) {
+        console.log("Upserting address");
+        console.log(address);
         let indexOf = this.knownAddresses.indexOf(address);
-        this.knownAddresses[indexOf] = address;
+        if (indexOf < 0) {
+            this.knownAddresses.push(address);
+        } else {
+            this.knownAddresses[indexOf] = address;
+        }
         this.persistToDB(address);
     }
 
@@ -142,7 +146,7 @@ export class AddressBookService {
             console.log(address.name + " successfully removed from DB");
         };
         removeRequest.onerror = e => {
-            console.log("Failed to remove "+address.name +" from address book ");
+            console.log("Failed to remove " + address.name + " from address book ");
             console.log(e);
         };
     }

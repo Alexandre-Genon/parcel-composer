@@ -1,65 +1,18 @@
-<form [formGroup]="searchForm" autocomplete="nofill">
+<app-address-editor
+        (newSearchStringEvent)="newSearchString($event)"
+        (newAddressEvent)="addAddressToBasket($event)"
+>
+</app-address-editor>
 
-    <div class="addressPartContainer">
-        <label for="original_string">Full text address </label>
-        <textarea rows=4 cols="50" id="original_string" type="text" formControlName="original_string" matInput
-                  autocomplete="nofill">
-		</textarea>
-        <button class="button"
-                (click)="extractAddressFromName(searchForm.value) "
-                [disabled]="!addressCanBeExtracted(searchForm.value)"
-        >
-            Extract address
-        </button>
-    </div>
+<div>
+    <app-address-book-explorer
+            (addressSelected)="addAddressToBasket($event)"
+            [addressBookMode]="selectBookMode()"
+            [searchString]="searchString"
+    >
+    </app-address-book-explorer>
+</div>
 
-    <div>
-        <app-address-book-explorer
-                (addressSelected)="addKnownAddress($event)"
-                [addressBookMode]="selectBookMode()"
-                [searchString]="searchString|async"
-        >
-        </app-address-book-explorer>
-    </div>
-
-    <div class="addressPartContainer">
-        <label for="name">
-            Name
-        </label>
-        <input id="name" type="text" formControlName="name" autocomplete="nofill">
-    </div>
-    <div class="addressPartContainer">
-        <label for="street">
-            Street
-        </label>
-        <input id="street" type="text" formControlName="street" autocomplete="nofill">
-        <label for="street_nb">
-            Number
-        </label>
-        <input id="street_nb" cols=5 type="text" formControlName="street_nb" autocomplete="nofill">
-        <label for="postbox_letter">
-            Postbox
-        </label>
-        <input id="postbox_letter" cols="5" type="text" formControlName="postbox_letter" autocomplete="nofill">
-    </div>
-    <div class="addressPartContainer">
-        <label for="postcode">
-            Postcode
-        </label>
-        <input id="postcode" type="text" formControlName="postcode" autocomplete="nofill">
-        <label for="city">
-            City
-        </label>
-        <input id="city" type="text" formControlName="city" autocomplete="nofill">
-    </div>
-    <div class="addressPartContainer">
-        <label for="email"> Email</label>
-        <input id="email" type="text" formControlName="email" autocomplete="nofill">
-    </div>
-    <div class="addressPartContainer">
-        <button class="button" type="submit" (click)="onAdd(searchForm.value)">Add</button>
-    </div>
-</form>
 <nav>
     <a routerLink="/parcels">List of parcels</a>
 </nav>

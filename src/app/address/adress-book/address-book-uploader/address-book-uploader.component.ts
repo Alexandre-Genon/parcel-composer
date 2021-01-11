@@ -43,7 +43,7 @@ export class AddressBookUploaderComponent implements OnInit {
                     this.addressService.truncateBook();
                 }
                 addressesAsJson.forEach(addressAsJson => {
-                    this.addressService.addAddress(addressAsJson);
+                    this.addressService.upsertAddress(addressAsJson);
                 })
             }
         });
