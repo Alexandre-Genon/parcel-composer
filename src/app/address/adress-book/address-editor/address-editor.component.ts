@@ -41,7 +41,7 @@ export class AddressEditorComponent implements OnInit {
             this.route.paramMap.pipe(
                 map((params: ParamMap) => params.get('name') && this.addressService.searchByName(params.get('name'))[0]),
                 filter(Boolean) // Clever way to filter out falsy values (thanks SO https://stackoverflow.com/a/32906951)
-            ).subscribe(a => this.newAddress(a));
+            ).subscribe((a:Address) => this.newAddress(a as Address));
         }
         this.addressEdition
             .get("original_string")
