@@ -12,6 +12,7 @@ import {FormBuilder, FormGroup} from "@angular/forms";
 })
 export class AddressEditorComponent implements OnInit {
     @Input("input_address") inputAddress: Address;
+    @Input("reset_after_save") resetAfterSave: Boolean;
 
     address: Address;
     addressEdition: FormGroup;
@@ -67,6 +68,10 @@ export class AddressEditorComponent implements OnInit {
         this.address.originalString = formFields.original_string;
         this.addressService.upsertAddress(this.address);
         this.newAddressEvent.emit(this.address);
+        if(this.resetAfterSave){
+            this.address=null;
+            this.addressEdition.reset();
+        }
     }
 
     private newAddress(address: Address) {

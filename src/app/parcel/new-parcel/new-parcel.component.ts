@@ -1,7 +1,6 @@
 import {Component, EventEmitter, OnInit, Output} from "@angular/core";
 import {Address} from "../../address/address";
 
-import {AddressBookService} from "../../address/address-book.service";
 import {ParcelBasketService} from "../parcel-basket.service";
 import {AddresssBookMode} from "../../address/adress-book/address-book-explorer/address-book-explorer.component";
 
@@ -15,7 +14,6 @@ export class NewParcelComponent implements OnInit {
     @Output() newParcelEvent = new EventEmitter<number>();
 
     constructor(
-        private addressService: AddressBookService,
         private basketService: ParcelBasketService
     ) {
     }

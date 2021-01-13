@@ -1,6 +1,8 @@
 export class Address {
   static NB_AND_STRING_REGEX = /\s*([0-9]+[a-z,A-Z]*)?,?\s*(.+?),?\s*([0-9]+[a-z,A-Z]*)?\s*$/;
+  static HAS_NUMBER_REGEX = /\d/
   static NB_AND_LETTER = /([0-9]+)([a-z,A-Z]*)/;
+  static EMAIL_REGEX = /([\w-\.]+@[\w-]+\.+[\w-]+)/
   originalString: string;
   name: string;
   street: string;
@@ -37,22 +39,34 @@ export class Address {
   }
 
   static fromString(originalString: string): Address {
-    let lines = originalString.split(/\r\n|\r|\n/);
+    let lines:string[] = originalString.split(/\r\n|\r|\n/);
     let nl = lines.length;
     let address = new Address();
     address.originalString = originalString;
-    address.name = lines[0];
-    let fullStreet = this.getTrimmedRowIfPresent(lines, 1);
-    let streetAndNb = this.getStringAndNumber(fullStreet);
-    address.street = streetAndNb[0];
-    let nbAndPostbox = this.getNumberAndLetters(streetAndNb[1])
-    address.street_nb = +nbAndPostbox[0];
-    address.postboxLetter = nbAndPostbox[1];
-    let fullCity = this.getTrimmedRowIfPresent(lines, 2);
-    let cityAndPostcode = this.getStringAndNumber(fullCity);
-    address.city = cityAndPostcode[0];
-    address.postcode = cityAndPostcode[1];
-    address.email = this.getTrimmedRowIfPresent(lines, 3);
+    console.log("Parsing : "+originalString);
+    for(let line of lines){
+        line = line.trim();
+        console.log("Line examined: #"+line+"#");
+        if(line.match(this.EMAIL_REGEX) && !address.email){
+            console.log("This is an email");
+            address.email = line.match(this.EMAIL_REGEX)[0];
+        } else if (line.match(this.HAS_NUMBER_REGEX) && !address.street){
+            console.log("This is the street line");
+            let streetAndNb = this.getStringAndNumber(line);
+            address.street = this.getTrimmedRowIfPresent(streetAndNb,0);
+            let nbAndPostbox = this.getNumberAndLetters(this.getTrimmedRowIfPresent(streetAndNb,1))
+            address.street_nb = +(this.getTrimmedRowIfPresent(nbAndPostbox,0));
+            address.postboxLetter = this.getTrimmedRowIfPresent(nbAndPostbox,1);
+        } else if (line.match(this.HAS_NUMBER_REGEX) && address.street && !address.city) {
+            console.log("This is the city line");
+            let cityAndPostcode = this.getStringAndNumber(line);
+            address.city = this.getTrimmedRowIfPresent(cityAndPostcode,0);
+            address.postcode = +this.getTrimmedRowIfPresent(cityAndPostcode,1);
+        } else if(!address.name){
+            console.log("This is the name");
+            address.name = line;
+        }
+    }
     return address;
   }
 
@@ -67,6 +81,11 @@ export class Address {
     a.postcode = obj.postcode;
     a.email = obj.email;
     return a;
+  }
+
+  constructor(){
+      // Has to support the case where email is not provided
+      this.email='';
   }
 
   postAddressToString():string{
