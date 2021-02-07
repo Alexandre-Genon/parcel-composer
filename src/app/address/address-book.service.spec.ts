@@ -1,5 +1,6 @@
 import {AddressBookService} from "./address-book.service";
 import {Address} from "./address";
+import {TestBed} from "@angular/core/testing";
 
 describe('AddressBookService', () => {
         let testAddress: string = `Genon Alexandre
@@ -18,7 +19,8 @@ describe('AddressBookService', () => {
         `;
         let addressService: AddressBookService;
         beforeEach(() => {
-            addressService = new AddressBookService()
+            TestBed.configureTestingModule({providers: [AddressBookService]});
+            addressService = TestBed.inject(AddressBookService);
         });
 
         it("#extractAddressFromString should correctly extract address", () => {
