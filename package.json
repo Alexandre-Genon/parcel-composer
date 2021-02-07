@@ -30,7 +30,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --host=0.0.0.0 --verbose=true --disableHostCheck",
-    "build": "ng build",
+    "build": "ng build --prod --base-href /parcel-composer/ --deploy-url /parcel-composer/",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
