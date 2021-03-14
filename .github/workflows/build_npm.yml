@@ -1,0 +1,31 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Release NPM package
+
+# Controls when the action will run. 
+on:
+  workflow_dispatch:
+  release:
+    types: [published]
+
+env:
+  NODE_VERSION: 15.x
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Use Node.js ${{ NODE_VERSION }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ NODE_VERSION }}
+      
+      - run: npm ci
+      - run: npm run build -- --outputPath=dist/out --configuration production
+      - run: npm test
+      - uses: actions/upload-artifact@v2
+        with:
+          name: alexgenon/parcel-composer
+          path: dist/out 
