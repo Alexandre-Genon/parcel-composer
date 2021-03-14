@@ -19,7 +19,6 @@ jobs:
         
       - run: npm ci
       - run: npm run build -- --outputPath=dist/out --configuration production
-      - run: npm test
       - uses: actions/upload-artifact@v2
         with:
           name: alexgenon/parcel-composer
