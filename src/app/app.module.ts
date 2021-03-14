@@ -20,6 +20,9 @@ import {AppRoutingModule} from './app-routing.module';
 import {ParcelUiComponent} from './parcel/parcel-ui/parcel-ui.component';
 import {TopBarComponent} from './top-bar/top-bar.component';
 import {AddressModule} from './address/address.module';
+import { CustomerMapComponent } from './customer-map/customer-map.component';
+import {CustomersMapService} from "./customer-map/customers-map.service";
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
     imports: [
@@ -37,16 +40,18 @@ import {AddressModule} from './address/address.module';
         ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
         AddressModule,
         AppRoutingModule,
+        HttpClientModule
     ],
     declarations: [
         AppComponent,
         ParcelBasketComponent,
         NewParcelComponent,
         ParcelUiComponent,
-        TopBarComponent
+        TopBarComponent,
+        CustomerMapComponent
     ],
     bootstrap: [AppComponent],
-    providers: [ParcelBasketService, AddressBookService]
+    providers: [ParcelBasketService, AddressBookService,CustomersMapService]
 })
 export class AppModule {
 }

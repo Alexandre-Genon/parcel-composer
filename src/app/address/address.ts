@@ -48,9 +48,11 @@ export class Address {
         line = line.trim();
         console.log("Line examined: #"+line+"#");
         if(line.match(this.EMAIL_REGEX) && !address.email){
+            /* emails are easy to detect */
             console.log("This is an email");
             address.email = line.match(this.EMAIL_REGEX)[0];
         } else if (line.match(this.HAS_NUMBER_REGEX) && !address.street){
+            /* We assume the first line with numbers is the street */
             console.log("This is the street line");
             let streetAndNb = this.getStringAndNumber(line);
             address.street = this.getTrimmedRowIfPresent(streetAndNb,0);
@@ -58,29 +60,18 @@ export class Address {
             address.street_nb = +(this.getTrimmedRowIfPresent(nbAndPostbox,0));
             address.postboxLetter = this.getTrimmedRowIfPresent(nbAndPostbox,1);
         } else if (line.match(this.HAS_NUMBER_REGEX) && address.street && !address.city) {
+            /* Then if street is defined, the next line with numbers is the city */
             console.log("This is the city line");
             let cityAndPostcode = this.getStringAndNumber(line);
             address.city = this.getTrimmedRowIfPresent(cityAndPostcode,0);
             address.postcode = +this.getTrimmedRowIfPresent(cityAndPostcode,1);
         } else if(!address.name){
+            /* Finally, line not matching anything else must be the name */
             console.log("This is the name");
             address.name = line;
         }
     }
     return address;
-  }
-
-  static fromObject(obj): Address {
-    let a = new Address();
-    a.originalString = obj.originalString;
-    a.name = obj.name;
-    a.street = obj.street;
-    a.street_nb = obj.street_nb;
-    a.postboxLetter = obj.postboxLetter;
-    a.city = obj.city;
-    a.postcode = obj.postcode;
-    a.email = obj.email;
-    return a;
   }
 
   constructor(){

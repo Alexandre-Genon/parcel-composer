@@ -51,14 +51,6 @@ export class AddressBookExplorerComponent implements OnInit {
         this.addressSelectedEvent.emit(address);
     }
 
-    isSelectMode() {
-      return this.addressBookMode == AddresssBookMode.SELECTION;
-    }
-
-    isEditMode() {
-        return this.addressBookMode == AddresssBookMode.EDITION;
-    }
-
     actionLabel() {
         return this.addressBookMode== AddresssBookMode.EDITION?"Editer":"Ajouter";
     }
