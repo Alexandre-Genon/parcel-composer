@@ -2,7 +2,7 @@
 FROM node as build
 WORKDIR /app
 COPY package*.json /app/
-RUN npm install
+RUN npm ci
 COPY src /app/src
 COPY angular.json tsconfig* ngsw-config.json package.json /app/
 ARG configuration=production
