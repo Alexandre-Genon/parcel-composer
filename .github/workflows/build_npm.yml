@@ -16,11 +16,14 @@ jobs:
       
       - name: Use Node.js 
         uses: actions/setup-node@v2.1.5
+        with:
+          registry-url: 'https://npm.pkg.github.com'
+          # Defaults to the user or organization that owns the workflow file
+          scope: '@agenon'
         
       - run: npm ci
       - run: npm run build -- --outputPath=dist/out --configuration production
       - run: npm test
-      - uses: actions/upload-artifact@v2
-        with:
-          name: alexgenon/parcel-composer
-          path: dist/out 
+      - run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.CR_PAT }}
