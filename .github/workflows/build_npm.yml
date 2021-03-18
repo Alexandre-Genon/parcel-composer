@@ -23,7 +23,7 @@ jobs:
 
       - run: npm ci
       - run: npm run build -- --outputPath=dist/out --configuration production
-      - run: npm test
+     # - run: npm test
       - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.CR_PAT }}
